@@ -15,8 +15,7 @@ export const blogSchema = z.object({
     .nonempty("At least one tag is required"),
   publishedAt: z
     .string()
-    .refine((date) => !isNaN(Date.parse(date)), "Invalid date format")
-    .transform((date) => new Date(date)),
+    .refine((date) => !isNaN(Date.parse(date)), "Invalid date format"),
 });
 
 export type BlogInput = z.infer<typeof blogSchema>;

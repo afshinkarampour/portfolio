@@ -1,12 +1,10 @@
 import EditForm from "@/components/admin/publication/edit-form";
 
-interface EditPageProps {
-  params: {
-    id: string;
-  };
-}
-
-export default async function EditPublicationPage({ params }: EditPageProps) {
-  const { id } = params;
+export default async function EditPublicationPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const id = (await params).id;
   return <EditForm id={id} />;
 }

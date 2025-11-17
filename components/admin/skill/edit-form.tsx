@@ -22,7 +22,7 @@ export default function EditForm({ id }: EditFormProps) {
     setValue,
     formState: { errors, isSubmitting },
   } = useForm<SkillInput>({
-    resolver: zodResolver(skillSchema),
+    resolver: zodResolver(skillSchema) as any,
   });
 
   useEffect(() => {

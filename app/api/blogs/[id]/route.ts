@@ -30,9 +30,14 @@ export async function PATCH(req: Request, { params }: RouteParams) {
       );
     }
 
+    const { publishedAt, ...rest } = parsed.data;
+
     const updated = await prisma.blog.update({
       where: { id: numericId },
-      data: parsed.data,
+      data: {
+        ...rest,
+        publishedAt: publishedAt ? new Date(publishedAt) : null,
+      },
     });
 
     return NextResponse.json({

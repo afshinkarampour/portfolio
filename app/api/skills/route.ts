@@ -32,7 +32,12 @@ export async function POST(req: Request) {
 
     const formattedData = {
       ...rest,
-      years: years && years !== "" ? parseInt(years as string, 10) : null,
+      years:
+        typeof years === "string" && years !== ""
+          ? parseInt(years, 10)
+          : typeof years === "number"
+          ? years
+          : null,
     };
 
     const newSkill = await prisma.skill.create({ data: formattedData });

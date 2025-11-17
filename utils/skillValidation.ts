@@ -14,17 +14,11 @@ export const skillSchema = z.object({
     .string()
     .min(1, "Skills name is required")
     .max(200, "Skills name must be at most 200 characters"),
-  years: z
-    .union([z.string(), z.number()])
-    .optional()
-    .transform((val) => {
-      if (val === "" || val === undefined || val === null) return null;
-      const n = Number(val);
-      if (Number.isNaN(n) || !Number.isInteger(n) || n < 0 || n > 50) {
-        throw new Error("Years must be an integer between 0 and 50");
-      }
-      return n;
-    }),
+  years: z.preprocess((val) => {
+    if (val === "" || val === null || val === undefined) return null;
+    const n = Number(val);
+    return Number.isNaN(n) ? null : n;
+  }, z.number().int().min(0).max(50).nullable()),
   iconUrl: z.string().max(1000, "URL too long").nullable().optional(),
   description: z
     .string()

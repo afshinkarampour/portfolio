@@ -13,7 +13,7 @@ export default function NewForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<SkillInput>({ resolver: zodResolver(skillSchema) });
+  } = useForm<SkillInput>({ resolver: zodResolver(skillSchema) as any });
 
   const onSubmit = async (data: SkillInput) => {
     try {
